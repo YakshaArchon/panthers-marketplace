@@ -19,6 +19,15 @@
                 <a href="#features" class="nav-link">Features</a>
                 <a href="#contact" class="nav-link">Contact</a>
             </nav>
+            <div class="header-buttons">
+                <button class="btn-glass btn-signin">Sign In</button>
+                <button class="btn-glass btn-getstarted">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 0.5rem;">
+                        <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17C17 18.1 16.1 19 15 19H9C7.9 19 7 18.1 7 17V13M9 21C9.6 21 10 20.6 10 20S9.6 19 9 19 8 19.4 8 20 8.4 21 9 21ZM20 21C20.6 21 21 20.6 21 20S20.6 19 20 19 19 19.4 19 20 19.4 21 20 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Shop Now
+                </button>
+            </div>
         </div>
     </header>
 
@@ -48,7 +57,6 @@
                 <div class="action-buttons">
                     <button class="btn btn-primary">Post an Item</button>
                     <button class="btn btn-secondary">Browse Listings</button>
-                    <button class="btn btn-outline">Get Directions</button>
                 </div>
             </div>
         </section>
@@ -101,6 +109,90 @@
                         </div>
                         <h3 class="feature-title">Verified USPF Access</h3>
                         <p class="feature-description">Only students, alumni, and faculty can join. Safer, more trustworthy environment.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="products-main-section">
+            <div class="container">
+                <div class="products-center">
+                    <button class="btn-see-more" id="seeMoreBtn">See More</button>
+                    
+                    <!-- Products Carousel Section (Initially Hidden) -->
+                    <div class="products-section" id="productsSection" style="display: none;">
+                        <h4 class="products-title">Products</h4>
+                        
+                        <!-- Carousel Container -->
+                        <div class="carousel-container">
+                            <!-- Navigation Buttons -->
+                            <button class="carousel-btn carousel-prev" id="prevBtn">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M15 18L9 12L15 6" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                            
+                            <!-- Carousel Items -->
+                            <div class="carousel-wrapper">
+                                <div class="carousel-track" id="carouselTrack">
+                                    <!-- Shoes -->
+                                    <div class="carousel-item active" data-category="shoes">
+                                        <div class="carousel-icon">
+                            <img src="images/Shoes.jpg" alt="Professional Shoes" />
+                        </div>
+                                        <h5 class="carousel-title">Shoes</h5>
+                                        <p class="carousel-desc">Athletic shoes, formal shoes, and casual footwear for all occasions</p>
+                                        <div class="carousel-features">
+                                            <span class="feature-tag">Athletic</span>
+                                            <span class="feature-tag">Formal</span>
+                                            <span class="feature-tag">Casual</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Uniform -->
+                                    <div class="carousel-item" data-category="uniform">
+                                        <div class="carousel-icon">
+                            <img src="images/Uniform.png" alt="School Uniforms" />
+                        </div>
+                                        <h5 class="carousel-title">Uniform</h5>
+                                        <p class="carousel-desc">School uniforms, lab coats, and official attire for students and faculty</p>
+                                        <div class="carousel-features">
+                                            <span class="feature-tag">School</span>
+                                            <span class="feature-tag">Lab Coats</span>
+                                            <span class="feature-tag">Official</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Books -->
+                                    <div class="carousel-item" data-category="books">
+                                        <div class="carousel-icon">
+                            <img src="images/Books.webp" alt="Educational Books" />
+                        </div>
+                                        <h5 class="carousel-title">Books</h5>
+                                        <p class="carousel-desc">Textbooks, notebooks, and study materials for academic success</p>
+                                        <div class="carousel-features">
+                                            <span class="feature-tag">Textbooks</span>
+                                            <span class="feature-tag">Notebooks</span>
+                                            <span class="feature-tag">Study Materials</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button class="carousel-btn carousel-next" id="nextBtn">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 18L15 12L9 6" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <!-- Carousel Indicators -->
+                        <div class="carousel-indicators" id="carouselIndicators">
+                            <button class="indicator active" data-slide="0"></button>
+                            <button class="indicator" data-slide="1"></button>
+                            <button class="indicator" data-slide="2"></button>
+                        </div>
                     </div>
                 </div>
             </div>

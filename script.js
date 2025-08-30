@@ -21,7 +21,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add click handlers for action buttons
     const postItemBtn = document.querySelector('.btn-primary');
     const browseListingsBtn = document.querySelector('.btn-secondary');
-    const getDirectionsBtn = document.querySelector('.btn-outline');
+    const seeMoreBtn = document.getElementById('seeMoreBtn');
+    const productsSection = document.getElementById('productsSection');
     
     if (postItemBtn) {
         postItemBtn.addEventListener('click', function() {
@@ -35,10 +36,136 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    if (getDirectionsBtn) {
-        getDirectionsBtn.addEventListener('click', function() {
-            alert('Get Directions feature coming soon! This will show campus locations.');
+    // See More button and carousel functionality
+    let currentSlide = 0;
+    const totalSlides = 3;
+    const carouselTrack = document.getElementById('carouselTrack');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const indicators = document.querySelectorAll('.indicator');
+    
+    // Carousel Navigation Functions
+    function updateCarousel() {
+        if (carouselTrack) {
+            const translateX = -currentSlide * (100 / totalSlides);
+            carouselTrack.style.transform = `translateX(${translateX}%)`;
+            
+            // Update active states
+            document.querySelectorAll('.carousel-item').forEach((item, index) => {
+                item.classList.toggle('active', index === currentSlide);
+            });
+            
+            // Update indicators
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentSlide);
+            });
+        }
+    }
+    
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateCarousel();
+    }
+    
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        updateCarousel();
+    }
+    
+    function goToSlide(slideIndex) {
+        currentSlide = slideIndex;
+        updateCarousel();
+    }
+    
+    // See More button functionality
+    if (seeMoreBtn && productsSection) {
+        seeMoreBtn.addEventListener('click', function() {
+            if (productsSection.style.display === 'none' || productsSection.style.display === '') {
+                productsSection.style.display = 'block';
+                seeMoreBtn.textContent = 'See Less';
+                startAutoPlay();
+            } else {
+                productsSection.style.display = 'none';
+                seeMoreBtn.textContent = 'See More';
+                currentSlide = 0;
+                updateCarousel();
+                stopAutoPlay();
+            }
         });
+    }
+    
+    // Carousel event listeners
+    if (nextBtn) {
+        nextBtn.addEventListener('click', nextSlide);
+    }
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', prevSlide);
+    }
+    
+    // Indicator click events
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => goToSlide(index));
+    });
+    
+    // Auto-play carousel
+    let autoPlayInterval;
+    
+    function startAutoPlay() {
+        autoPlayInterval = setInterval(nextSlide, 4000);
+    }
+    
+    function stopAutoPlay() {
+        clearInterval(autoPlayInterval);
+    }
+    
+    // Pause auto-play on hover
+    if (carouselTrack) {
+        carouselTrack.addEventListener('mouseenter', stopAutoPlay);
+        carouselTrack.addEventListener('mouseleave', () => {
+            if (productsSection.style.display === 'block') {
+                startAutoPlay();
+            }
+        });
+    }
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (productsSection.style.display === 'block') {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+            }
+        }
+    });
+    
+    // Touch/swipe support for mobile
+    let startX = 0;
+    let endX = 0;
+    
+    if (carouselTrack) {
+        carouselTrack.addEventListener('touchstart', function(e) {
+            startX = e.touches[0].clientX;
+        });
+        
+        carouselTrack.addEventListener('touchend', function(e) {
+            endX = e.changedTouches[0].clientX;
+            handleSwipe();
+        });
+    }
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = startX - endX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+        }
     }
     
     // Add intersection observer for animations
@@ -77,25 +204,21 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Add scroll effect to header
-    let lastScrollTop = 0;
     const header = document.querySelector('.header');
     
     window.addEventListener('scroll', function() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
-        if (scrollTop > lastScrollTop && scrollTop > 100) {
-            // Scrolling down
-            header.style.transform = 'translateY(-100%)';
+        // Add scrolled class for better visibility
+        if (scrollTop > 50) {
+            header.classList.add('scrolled');
         } else {
-            // Scrolling up
-            header.style.transform = 'translateY(0)';
+            header.classList.remove('scrolled');
         }
-        
-        lastScrollTop = scrollTop;
     });
     
-    // Add transition to header
-    header.style.transition = 'transform 0.3s ease';
+    // Ensure header is always visible
+    header.style.transform = 'translateY(0)';
     
     // Add loading animation
     const heroTitle = document.querySelector('.hero-title');
